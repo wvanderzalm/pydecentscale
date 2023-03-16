@@ -143,7 +143,7 @@ class DecentScale(AsyncioEventLoopThread):
         await self.__send(self.reset_time_command)
 
     def notification_handler(self, sender, data):
-        if data[0] != 0x03 or len(data) != 7:
+        if data[0] != 0x03 or (len(data) != 10 and len(data) != 7):
             # Basic sanity check
             logger.info("Invalid notification: not a Decent Scale?")
             return
@@ -266,7 +266,3 @@ class DecentScale(AsyncioEventLoopThread):
     @check_connection 
     def led_on(self):   
         self.run_coro(self._led_on())
- 
-
-        
-
